@@ -1,21 +1,21 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    wfw コマンドのメインエントリポイント
+    wfw command main entry point
 
 .DESCRIPTION
-    引数を解析してサブコマンドにディスパッチする
+    Parse arguments and dispatch to subcommands
 
 .PARAMETER Arguments
-    コマンドライン引数の配列
+    Command line arguments array
 
 .EXAMPLE
     Invoke-Wfw -Arguments @("status")
-    ファイアウォールの状態を表示
+    Display firewall status
 
 .EXAMPLE
     Invoke-Wfw -Arguments @("allow", "443")
-    ポート443を許可
+    Allow port 443
 #>
 function Invoke-Wfw {
     [CmdletBinding()]
@@ -24,13 +24,13 @@ function Invoke-Wfw {
         [string[]]$Arguments
     )
 
-    # 引数がない場合はヘルプを表示
+    # Show help if no arguments
     if (-not $Arguments -or $Arguments.Count -eq 0) {
         Show-WfwHelp
         return
     }
 
-    # グローバルオプションを抽出
+    # Extract global options
     $globalOptions = @{
         Json    = $false
         Quiet   = $false
@@ -59,7 +59,7 @@ function Invoke-Wfw {
         $i++
     }
 
-    # サブコマンドを取得
+    # Get subcommand
     if ($remainingArgs.Count -eq 0) {
         Show-WfwHelp
         return
@@ -68,7 +68,7 @@ function Invoke-Wfw {
     $subCommand = $remainingArgs[0].ToLower()
     $subArgs = if ($remainingArgs.Count -gt 1) { $remainingArgs[1..($remainingArgs.Count - 1)] } else { @() }
 
-    # サブコマンドにディスパッチ
+    # Dispatch to subcommand
     switch ($subCommand) {
         "status" {
             Get-WfwStatus -Options $globalOptions
@@ -83,11 +83,11 @@ function Invoke-Wfw {
             Add-WfwRule -Arguments $subArgs -Options $globalOptions
         }
         "allow" {
-            # ショートハンド: allow -> add allow
+            # Shorthand: allow -> add allow
             Add-WfwRule -Arguments (@("allow") + $subArgs) -Options $globalOptions
         }
         "block" {
-            # ショートハンド: block -> add block
+            # Shorthand: block -> add block
             Add-WfwRule -Arguments (@("block") + $subArgs) -Options $globalOptions
         }
         "del" {
@@ -127,8 +127,8 @@ function Invoke-Wfw {
             Write-Host "wfw version $script:WfwVersion"
         }
         default {
-            Write-Error "不明なコマンド: $subCommand"
-            Write-Host "使用可能なコマンド: status, list, show, add, allow, block, del, enable, disable, toggle, ttl, help"
+            Write-Error "Unknown command: $subCommand"
+            Write-Host "Available commands: status, list, show, add, allow, block, del, enable, disable, toggle, ttl, help"
             exit $script:ExitCodes.ArgumentError
         }
     }
@@ -136,38 +136,38 @@ function Invoke-Wfw {
 
 <#
 .SYNOPSIS
-    ヘルプメッセージを表示
+    Display help message
 #>
 function Show-WfwHelp {
     $help = @"
-wfw - Windows Defender Firewall CLI ツール
+wfw - Windows Defender Firewall CLI tool
 
-使用法:
+Usage:
     wfw <command> [options]
 
-コマンド:
-    status              ファイアウォールの状態を表示
-    list                ルール一覧を表示
-    show <id|name>      ルールの詳細を表示
-    add allow|block     ルールを追加
-    allow <port>        ポートを許可（add allow のショートハンド）
-    block <port>        ポートをブロック（add block のショートハンド）
-    del <id|name>       ルールを削除
-    enable <id|name>    ルールを有効化
-    disable <id|name>   ルールを無効化
-    toggle <id|name>    ルールの有効/無効を切り替え
-    ttl <subcommand>    一時ルール操作
-    help                このヘルプを表示
-    version             バージョンを表示
+Commands:
+    status              Show firewall status
+    list                List rules
+    show <id|name>      Show rule details
+    add allow|block     Add rule
+    allow <port>        Allow port (shorthand for add allow)
+    block <port>        Block port (shorthand for add block)
+    del <id|name>       Delete rule
+    enable <id|name>    Enable rule
+    disable <id|name>   Disable rule
+    toggle <id|name>    Toggle rule enabled/disabled
+    ttl <subcommand>    Temporary rule operations
+    help                Show this help
+    version             Show version
 
-グローバルオプション:
-    --json              JSON形式で出力
-    --quiet             最小出力
-    --verbose           詳細ログ
-    --dry-run           実行せず計画のみ表示
-    --profile <name>    対象プロファイル (domain|private|public|any)
+Global Options:
+    --json              Output in JSON format
+    --quiet             Minimal output
+    --verbose           Verbose logging
+    --dry-run           Show plan without executing
+    --profile <name>    Target profile (domain|private|public|any)
 
-例:
+Examples:
     wfw status
     wfw allow 443
     wfw allow out 53/udp

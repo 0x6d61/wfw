@@ -1,16 +1,16 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    TTL（一時ルール）機能
+    TTL (temporary rule) operations
 
 .DESCRIPTION
-    一時的なルールの追加、一覧表示、期限切れ削除を行う
+    Add, list, and reap temporary rules
 
 .PARAMETER Arguments
-    コマンド引数
+    Command arguments
 
 .PARAMETER Options
-    グローバルオプション
+    Global options
 #>
 function Invoke-WfwTtl {
     [CmdletBinding()]
@@ -22,8 +22,8 @@ function Invoke-WfwTtl {
         [hashtable]$Options = @{}
     )
 
-    # TODO: フェーズ4で実装
-    Write-Host "Invoke-WfwTtl: 未実装（フェーズ4で実装予定）" -ForegroundColor Yellow
+    # TODO: Implement in phase 4
+    Write-Host "Invoke-WfwTtl: Not implemented (planned for phase 4)" -ForegroundColor Yellow
 }
 
 Export-ModuleMember -Function Invoke-WfwTtl

@@ -1,16 +1,16 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    ファイアウォールルールを削除
+    Remove firewall rule
 
 .DESCRIPTION
-    指定したルールを削除する
+    Remove specified rule
 
 .PARAMETER Arguments
-    コマンド引数
+    Command arguments
 
 .PARAMETER Options
-    グローバルオプション
+    Global options
 #>
 function Remove-WfwRule {
     [CmdletBinding()]
@@ -22,8 +22,8 @@ function Remove-WfwRule {
         [hashtable]$Options = @{}
     )
 
-    # TODO: フェーズ3で実装
-    Write-Host "Remove-WfwRule: 未実装（フェーズ3で実装予定）" -ForegroundColor Yellow
+    # TODO: Implement in phase 3
+    Write-Host "Remove-WfwRule: Not implemented (planned for phase 3)" -ForegroundColor Yellow
 }
 
 Export-ModuleMember -Function Remove-WfwRule

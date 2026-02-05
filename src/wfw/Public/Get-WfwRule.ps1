@@ -1,20 +1,20 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    ルール一覧・詳細を表示
+    Display rule list or details
 
 .DESCRIPTION
-    list: フィルタ付きルール一覧を表示
-    show: 特定ルールの詳細を表示
+    list: Show filtered rule list
+    show: Show specific rule details
 
 .PARAMETER SubCommand
-    "list" または "show"
+    "list" or "show"
 
 .PARAMETER Arguments
-    コマンド引数
+    Command arguments
 
 .PARAMETER Options
-    グローバルオプション
+    Global options
 #>
 function Get-WfwRule {
     [CmdletBinding()]
@@ -30,8 +30,8 @@ function Get-WfwRule {
         [hashtable]$Options = @{}
     )
 
-    # TODO: フェーズ3で実装
-    Write-Host "Get-WfwRule: 未実装（フェーズ3で実装予定）" -ForegroundColor Yellow
+    # TODO: Implement in phase 3
+    Write-Host "Get-WfwRule: Not implemented (planned for phase 3)" -ForegroundColor Yellow
 }
 
 Export-ModuleMember -Function Get-WfwRule
