@@ -30,7 +30,7 @@ Describe "Invoke-WfwTtl" {
         It "add: Calls Add-WfwRule and then sets Description" {
              InModuleScope "wfw" {
                 Mock Add-WfwRule { 
-                    return @{ Success = $true; RuleId = "NewRule"; Name = "NewRule" } 
+                    return (@{ Success = $true; RuleId = "NewRule" } | ConvertTo-Json)
                 }
                 Mock Set-NetFirewallRule {}
                 Mock Get-Date { return [DateTime]"2026-01-01 12:00:00" } 
