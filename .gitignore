@@ -1,0 +1,29 @@
+# PowerShell
+*.ps1xml
+
+# Pester テスト結果
+TestResults*.xml
+coverage.xml
+
+# VSCode
+.vscode/
+
+# JetBrains
+.idea/
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# macOS
+.DS_Store
+
+# テスト用の一時ファイル
+*.tmp
+*.temp
+
+# ログファイル
+*.log
+
+# モジュールキャッシュ
+PSModulePath/
