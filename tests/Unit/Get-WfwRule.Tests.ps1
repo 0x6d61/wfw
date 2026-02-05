@@ -56,6 +56,12 @@ Describe "Get-WfwRule" {
                         Group = "FWCLI"
                     }
                 }
+                Mock Get-NetFirewallPortFilter {
+                    return [PSCustomObject]@{ Protocol = "TCP"; LocalPort = "80"; RemotePort = "Any" }
+                }
+                Mock Get-NetFirewallAddressFilter {
+                    return [PSCustomObject]@{ LocalAddress = "Any"; RemoteAddress = "Any" }
+                }
                 
                 Get-WfwRule -SubCommand "show" -Arguments @("TestRule") -Options @{}
                 
