@@ -1,32 +1,32 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    ルール名を自動生成する
+    繝ｫ繝ｼ繝ｫ蜷阪ｒ閾ｪ蜍慕函謌舌☆繧・
 
 .DESCRIPTION
-    FWCLI:<action>:<dir>:<proto>:<lport>:<raddr>:<ts> 形式のルール名を生成
+    FWCLI:<action>:<dir>:<proto>:<lport>:<raddr>:<ts> 蠖｢蠑上・繝ｫ繝ｼ繝ｫ蜷阪ｒ逕滓・
 
 .PARAMETER Action
-    "allow" または "block"
+    "allow" 縺ｾ縺溘・ "block"
 
 .PARAMETER Direction
-    "in" または "out"
+    "in" 縺ｾ縺溘・ "out"
 
 .PARAMETER Protocol
-    プロトコル（tcp, udp, icmp, any）
+    繝励Ο繝医さ繝ｫ・・cp, udp, icmp, any・・
 
 .PARAMETER LocalPort
-    ローカルポート
+    繝ｭ繝ｼ繧ｫ繝ｫ繝昴・繝・
 
 .PARAMETER RemoteAddress
-    リモートアドレス
+    繝ｪ繝｢繝ｼ繝医い繝峨Ξ繧ｹ
 
 .OUTPUTS
-    生成されたルール名
+    逕滓・縺輔ｌ縺溘Ν繝ｼ繝ｫ蜷・
 
 .EXAMPLE
     Format-RuleName -Action "allow" -Direction "in" -Protocol "tcp" -LocalPort "443"
-    # 出力: FWCLI:allow:in:tcp:443:any:20260205171500
+    # 蜃ｺ蜉・ FWCLI:allow:in:tcp:443:any:20260205171500
 #>
 function Format-RuleName {
     [CmdletBinding()]
@@ -49,22 +49,22 @@ function Format-RuleName {
         [string]$RemoteAddress = "any"
     )
 
-    # タイムスタンプを生成
+    # 繧ｿ繧､繝繧ｹ繧ｿ繝ｳ繝励ｒ逕滓・
     $timestamp = Get-Date -Format "yyyyMMddHHmmss"
 
-    # リモートアドレスを短縮
+    # 繝ｪ繝｢繝ｼ繝医い繝峨Ξ繧ｹ繧堤洒邵ｮ
     $shortAddr = if ($RemoteAddress -eq "Any" -or $RemoteAddress -eq "any") {
         "any"
     }
     elseif ($RemoteAddress.Length -gt 15) {
-        # 長いアドレスは先頭を使用
+        # 髟ｷ縺・い繝峨Ξ繧ｹ縺ｯ蜈磯ｭ繧剃ｽｿ逕ｨ
         $RemoteAddress.Substring(0, 12) + "..."
     }
     else {
         $RemoteAddress
     }
 
-    # ルール名を構築
+    # 繝ｫ繝ｼ繝ｫ蜷阪ｒ讒狗ｯ・
     $name = "FWCLI:$Action`:$Direction`:$Protocol`:$LocalPort`:$shortAddr`:$timestamp"
 
     return $name

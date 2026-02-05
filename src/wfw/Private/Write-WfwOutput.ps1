@@ -1,22 +1,22 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    出力を適切なフォーマットで書き出す
+    Write output in appropriate format
 
 .DESCRIPTION
-    --json, --quiet, --verbose オプションに応じて出力を制御する
+    Control output based on --json, --quiet, --verbose options
 
 .PARAMETER Data
-    出力するデータ
+    Data to output
 
 .PARAMETER Options
-    グローバルオプション
+    Global options
 
 .PARAMETER Message
-    テキストメッセージ（通常出力用）
+    Text message (for non-JSON output)
 
 .PARAMETER Level
-    ログレベル（Info, Warning, Error, Verbose）
+    Log level (Info, Warning, Error, Verbose)
 #>
 function Write-WfwOutput {
     [CmdletBinding()]
@@ -35,23 +35,23 @@ function Write-WfwOutput {
         [string]$Level = "Info"
     )
 
-    # Quietモードではエラー以外を抑制
+    # Quiet mode suppresses non-errors
     if ($Options.Quiet -and $Level -notin @("Error")) {
         return
     }
 
-    # Verboseモードのメッセージ
+    # Verbose messages only in verbose mode
     if ($Level -eq "Verbose" -and -not $Options.Verbose) {
         return
     }
 
-    # JSON出力
+    # JSON output
     if ($Options.Json -and $Data) {
         $Data | ConvertTo-Json -Depth 10
         return
     }
 
-    # テキスト出力
+    # Text output
     if ($Message) {
         switch ($Level) {
             "Info" { Write-Host $Message }

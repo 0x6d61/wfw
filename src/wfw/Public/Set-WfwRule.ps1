@@ -1,19 +1,19 @@
-#Requires -Version 5.1
+﻿#Requires -Version 5.1
 <#
 .SYNOPSIS
-    ファイアウォールルールの有効/無効を設定
+    Enable/Disable firewall rule
 
 .DESCRIPTION
-    ルールを有効化、無効化、またはトグルする
+    Enable, disable, or toggle a rule
 
 .PARAMETER Action
-    "enable", "disable", または "toggle"
+    "enable", "disable", or "toggle"
 
 .PARAMETER Arguments
-    コマンド引数
+    Command arguments
 
 .PARAMETER Options
-    グローバルオプション
+    Global options
 #>
 function Set-WfwRule {
     [CmdletBinding()]
@@ -29,8 +29,8 @@ function Set-WfwRule {
         [hashtable]$Options = @{}
     )
 
-    # TODO: フェーズ3で実装
-    Write-Host "Set-WfwRule: 未実装（フェーズ3で実装予定）" -ForegroundColor Yellow
+    # TODO: Implement in phase 3
+    Write-Host "Set-WfwRule: Not implemented (planned for phase 3)" -ForegroundColor Yellow
 }
 
 Export-ModuleMember -Function Set-WfwRule
