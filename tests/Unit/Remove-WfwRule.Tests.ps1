@@ -37,18 +37,13 @@ Describe "Remove-WfwRule" {
 
     Context "Execution" {
         It "Calls Remove-NetFirewallRule with correct ID" {
-            Mock Remove-NetFirewallRule {}
-            
-            # Note: Assuming Remove-WfwRule internally calls Remove-NetFirewallRule logic
-            # Since we don't have real firewall rules, we might need to mock Get-NetFirewallRule too if the implementation checks existence first.
-            # For now, let's assume simple implementation or logic that handles 'Name' as 'Name' or 'DisplayName'.
-            
-            # If the implementation searches by DisplayName or Name, we need to know.
-            # Let's assume input is treated as Name key for NetFirewallRule.
-            
-            Remove-WfwRule -Arguments @("TestRule") -Options @{ DryRun = $false }
-            
-            Should -Invoke Remove-NetFirewallRule -Times 1
+            InModuleScope "wfw" {
+                Mock Remove-NetFirewallRule {}
+                
+                Remove-WfwRule -Arguments @("TestRule") -Options @{ DryRun = $false }
+                
+                Should -Invoke Remove-NetFirewallRule -Times 1 -ParameterFilter { $Name -eq "TestRule" }
+            }
         }
     }
 }
