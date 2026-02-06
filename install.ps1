@@ -35,9 +35,10 @@ if (Test-Path $destDir) {
     Write-Host "Removing existing installation..." -ForegroundColor Yellow
     Remove-Item -Path $destDir -Recurse -Force
 }
+New-Item -Path $destDir -ItemType Directory -Force | Out-Null
 
 Write-Host "Copying module files..."
-Copy-Item -Path $srcDir -Destination $userModulePath -Recurse -Force
+Copy-Item -Path "$srcDir\*" -Destination $destDir -Recurse -Force
 
 Write-Host "Installation complete!" -ForegroundColor Green
 Write-Host "Please restart your PowerShell session or run:"
