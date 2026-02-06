@@ -11,7 +11,7 @@
 $ErrorActionPreference = "Stop"
 
 $moduleName = "wfw"
-$srcDir = Join-Path $PSScriptRoot "src" $moduleName
+$srcDir = Join-Path (Join-Path $PSScriptRoot "src") $moduleName
 
 # Detect user module path (usually the first one in PSModulePath that is in user's home)
 $userModulePath = $env:PSModulePath.Split(';') | Where-Object { $_ -like "*$env:USERNAME*" -and (Test-Path $_) } | Select-Object -First 1
