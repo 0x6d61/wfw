@@ -13,6 +13,7 @@ if (Test-Path $PrivatePath) {
 
 # Load Public functions
 $PublicPath = Join-Path $ModuleRoot "Public"
+if (Test-Path $PublicPath) {
     Get-ChildItem -Path $PublicPath -Filter "*.ps1" -Recurse | ForEach-Object {
         . $_.FullName
     }
