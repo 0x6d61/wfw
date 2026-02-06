@@ -13,11 +13,15 @@ if (Test-Path $PrivatePath) {
 
 # Load Public functions
 $PublicPath = Join-Path $ModuleRoot "Public"
-if (Test-Path $PublicPath) {
     Get-ChildItem -Path $PublicPath -Filter "*.ps1" -Recurse | ForEach-Object {
         . $_.FullName
     }
 }
+
+# Define Alias
+New-Alias -Name wfw -Value Invoke-Wfw -Force -Description "Windows Defender Firewall CLI"
+Export-ModuleMember -Alias wfw
+
 
 # Module shared variables
 $script:WfwGroupName = "FWCLI"

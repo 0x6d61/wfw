@@ -22,7 +22,7 @@
 
     CmdletsToExport      = @()
     VariablesToExport    = @()
-    AliasesToExport      = @()
+    AliasesToExport      = @('wfw')
 
     PrivateData          = @{
         PSData = @{
