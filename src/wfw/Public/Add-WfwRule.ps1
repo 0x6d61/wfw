@@ -183,6 +183,7 @@ function Add-WfwRule {
             Action      = if ($ruleParams.Action -eq "allow") { "Allow" } else { "Block" }
             Protocol    = $ruleParams.Protocol.ToUpper()
             LocalPort   = $parsedPorts
+            Group       = $script:WfwGroupName
             Enabled     = "True"
         }
 

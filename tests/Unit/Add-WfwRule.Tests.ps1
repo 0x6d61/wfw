@@ -76,4 +76,16 @@ Describe "Add-WfwRule" {
             $result.DryRun | Should -Be $true
         }
     }
+
+    Context "Rule Execution" {
+        It "Passes Group=FWCLI to New-NetFirewallRule" {
+            Mock New-NetFirewallRule { return @{ Name = "TestRule" } }
+
+            Add-WfwRule -Arguments @("allow", "12345") -Options @{ Json = $true }
+
+            Assert-MockCalled New-NetFirewallRule -ParameterFilter {
+                $Group -eq "FWCLI"
+            }
+        }
+    }
 }
