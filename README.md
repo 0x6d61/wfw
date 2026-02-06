@@ -22,11 +22,14 @@ Windows Defender Firewall を ufw/iptables 風の短いコマンドで操作す�
 git clone https://github.com/0x6d61/wfw.git
 cd wfw
 
-# モジュールをインポート（一時的）
-Import-Module .\src\wfw\wfw.psd1
+# インストーラーを実行
+.\install.ps1
 
-# または、wfw.ps1 を直接実行
-.\wfw.ps1 status
+# PowerShellを再起動するか、モジュールをインポート
+Import-Module wfw
+
+# wfw コマンドが使用可能になります
+wfw status
 ```
 
 ## 使用例
