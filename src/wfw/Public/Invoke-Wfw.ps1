@@ -20,7 +20,7 @@
 function Invoke-Wfw {
     [CmdletBinding()]
     param(
-        [Parameter(Position = 0)]
+        [Parameter(Position = 0, ValueFromRemainingArguments = $true)]
         [string[]]$Arguments
     )
 
